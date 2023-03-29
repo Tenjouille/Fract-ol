@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:10:04 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/03/27 14:57:33 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:17:18 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,24 @@ void	render(t_data *data, double x, double y)
 	t_fract		fract;
 	int			iter_max;
 	
-	iter_max = 300;// data->zoom.zoom;
-	fract.win_width = 800;
-	fract.win_height = 800;
+	iter_max = 300 / data->zoom.zoom;
+	fract.win_width = 400;
+	fract.win_height = 400;
 	fract.y = 0;
 	while (fract.y < fract.win_height)
 	{
 		fract.x = 0;
 		while (fract.x < fract.win_width)
 		{
-			c.r = pix_to_comp(fract.x, fract.win_width, 4, data->zoom.zoom) + x;
-			c.i = pix_to_comp(-fract.y, -fract.win_height, -4, data->zoom.zoom) + y;
+			c.r = pix_to_comp(fract.x, fract.win_width, 4, data->zoom.zoom) + x / 2;
+			c.i = pix_to_comp(-fract.y, -fract.win_height, -4, data->zoom.zoom) + y / 2;
 			if (mandelbrot(c, iter_max) == iter_max)
 				img_pix_put(&data->img, fract.x, fract.y, 0);
 			else
 			{
 				// img_pix_put(&data->img, fract.x, fract.y, 0xFFFFFF);
 				fract.color = get_color(mandelbrot(c, iter_max) * 255 / 100, 50);
+				
 				img_pix_put(&data->img, fract.x, fract.y, fract.color * 0x10000 + fract.color * 0x100 + fract.color);				
 			}
 			fract.x++;
@@ -97,25 +98,25 @@ int	handle_mouse_stuff(int mousesym, int x, int y, t_data *data)
 	{
 		mlx_mouse_get_pos(data->mlx, data->win, &x, &y);
 		// printf("%f\n", data->zoom.mouse_x);
-		data->zoom.mouse_x += pix_to_comp(x, 800, 4, data->zoom.zoom);
-		data->zoom.mouse_y += pix_to_comp(-y, -800, -4, data->zoom.zoom);
+		data->zoom.mouse_x += pix_to_comp(x, 400, 4, data->zoom.zoom);
+		data->zoom.mouse_y += pix_to_comp(-y, -400, -4, data->zoom.zoom);
 		data->zoom.zoom /= 1.5;
 		printf("(%f,%f)\n", data->zoom.mouse_x, data->zoom.mouse_y);
 		data->img.mlx_img = mlx_new_image(data->mlx, 1080/*(fractal.width)*/, 1080/*(fractal.height)*/);
 		data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.rowlen, &data->img.end);
-		render(data, x, y);
+		render(data, data->zoom.mouse_x, data->zoom.mouse_y);
 		// get_zoom_data(data->fractal, &data->zoom);
 	}
 	if (mousesym == 5)
 	{
 		mlx_mouse_get_pos(data->mlx, data->win, &x, &y);
 		// printf("%f\n", data->zoom.mouse_y);
-		data->zoom.mouse_x -= pix_to_comp(x, 800, 4, data->zoom.zoom);
-		data->zoom.mouse_y -= pix_to_comp(-y, -800, -4, data->zoom.zoom);
+		data->zoom.mouse_x += pix_to_comp(x, 400, 4, data->zoom.zoom);
+		data->zoom.mouse_y += pix_to_comp(-y, -400, -4, data->zoom.zoom);
 		data->zoom.zoom *= 1.5;
 		data->img.mlx_img = mlx_new_image(data->mlx, 1080/*(fractal.width)*/, 1080/*(fractal.height)*/);
 		data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp, &data->img.rowlen, &data->img.end);
-		render(data, pix_to_comp(data->zoom.mouse_x, 800, 4, data->zoom.zoom), pix_to_comp(-data->zoom.mouse_y, -800, -4, data->zoom.zoom));
+		render(data, data->zoom.mouse_x, data->zoom.mouse_y);
 		// get_zoom_data(data->fractal, &data->zoom);
 	}
 	// printf("Zoom : %f%%\n", data->zoom.zoom);
@@ -140,8 +141,8 @@ int	main(void)
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		return (1);
-	data.win = mlx_new_window(data.mlx, 1080, 1080, "Fract-ol");
-	data.img.mlx_img = mlx_new_image(data.mlx, 1080/*(fractal.width)*/, 1080/*(fractal.height)*/);
+	data.win = mlx_new_window(data.mlx, 400, 400, "Fract-ol");
+	data.img.mlx_img = mlx_new_image(data.mlx, 400/*(fractal.width)*/, 400/*(fractal.height)*/);
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp, &data.img.rowlen, &data.img.end);
 	render(&data, data.zoom.mouse_x, data.zoom.mouse_y);
 	if (!data.win)
