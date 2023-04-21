@@ -6,14 +6,16 @@
 #    By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:51 by tbourdea          #+#    #+#              #
-#    Updated: 2023/03/09 22:48:08 by tbourdea         ###   ########.fr        #
+#    Updated: 2023/04/21 14:41:48 by tbourdea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = fractol
 SRC =	main.c \
-		mandelbrot.c
+		mandelbrot.c \
+		ft_split.c \
+		parsing.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
@@ -25,13 +27,13 @@ HEADERS = -I ./include
 all: ${NAME}
  
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -pg -o $(NAME)
 	
 debug: clean
-	$(CC) $(SRC) $(LIBS) $(HEADERS) $(LFLAGS) -g3 -O3 -o $(NAME) 
+	$(CC) $(SRC) $(LIBS) $(HEADERS) $(LFLAGS)  -g3 -O3 -o $(NAME) 
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(HEADERS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) $(CFLAGS) $(HEADERS) -I/usr/include -Imlx_linux -pg -O3 -c $< -o $@
 
 clean:
 	$(RM) ${OBJ}
