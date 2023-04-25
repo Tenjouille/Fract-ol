@@ -6,11 +6,21 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:02:02 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/04/21 11:09:46 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/04/25 15:03:58 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 void	ft_freeall(char **dest, int j)
 {
@@ -99,29 +109,3 @@ char	**ft_split(char const *s, char c)
 	dest[ft_mallocsize(s, c)] = 0;
 	return (dest);
 }
-
-// int	main(void)
-// {
-// 	// int		i;
-// 	char	**res;
-// 	//res = ft_split(0, '\0');
-// 	//if (!res)
-// 	//	printf("Ok\n");
-// 	//prddintf("%s", res[0]);
-// 	// i = 0;
-// 	/*while (res[i])
-// 	{
-// 		printf("%s\n", res[i]);
-// 		free(res[i]);
-// 		i++;
-// 	}
-// 	free(res);*/
-// 	char **tab;
-// 	char * invalidReadCheck = new char; *invalidReadCheck = 0;
-// 	tab = ft_split(invalidReadCheck, 0);
-// 	if (tab[0] == NULL)
-// 		std::cout << "YOUPI" << std::endl; 
-// 	delete invalidReadCheck;
-// 	free(tab);
-// 	return (0);
-// }
