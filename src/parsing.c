@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 14:39:40 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/04/25 17:02:24 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:50:10 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,31 +63,31 @@ int	display_options(void)
 	write (2, "Here are the differents available options :\n", 44);
 	write (2, "\t1. [M] for Mandelbrot set\n\t2.  for Julia set", 45);
 	write (2, " with \"x + yi\" to determinate which one,", 40);
-	 exit (0);
+	exit (0);
 }
 
 int	error_msg(int ac, char **av)
 {
 	if (ac == 1)
 	{
-		 write (0, "Please specify which fractal set you want to see\n\n", 50);
+		write (0, "Please specify which fractal set you want to see\n\n", 50);
 		return (0);
 	}
 	if (ft_strlen(av[1]) != 1
 		|| (av[1][0] != 'J' && av[1][0] != 'M' && av[1][0] != 'B'))
 	{
-		 write (2, "Sorry, this option does not exist.\n\n", 36);
+		write (2, "Sorry, this option does not exist.\n\n", 36);
 		return (0);
 	}
 	if ((ac > 2 && (av[1][0] == 'M' || av[1][0] == 'B')) || ac > 4)
 	{
-		 write (2, "Sorry, this option does not exist.\n\n", 36);
+		write (2, "Sorry, this option does not exist.\n\n", 36);
 		return (0);
 	}
 	if (ac != 4 && av[1][0] == 'J')
 	{
-		 write (2, "Please specify correctly which Julia set you ", 45);
-		 write (2, "want to see\n\n", 13);
+		write (2, "Please specify correctly which Julia set you ", 45);
+		write (2, "want to see\n\n", 13);
 		return (0);
 	}
 	return (1);

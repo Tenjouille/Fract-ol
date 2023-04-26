@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:10:29 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/04/25 17:18:03 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:39:46 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_img
 
 typedef struct s_fract
 {
+	int	rgb;
 	int	x;
 	int	y;
 	int	win_width;
@@ -66,6 +67,7 @@ typedef struct s_data
 
 /*				fractol_utils.c				*/
 int		select_fractal(char set, t_complex c, t_data *data);
+int		select_color_set(int rgb, int iteration, t_data *data);
 double	ft_abs(double res);
 double	pix_to_comp(int x, int size, int cmp_plane, double zoom);
 /*				ft_split.c				*/
@@ -75,9 +77,9 @@ int		ft_mallocsize(char const *s, char c);
 char	*ft_sepwords(char **dest, char const *s, int c, int j);
 char	**ft_split(char const *s, char c);
 /*				mlx_events.c				*/
-void	directional_arrow(int keysym, t_data *data);
-void	zoom_event(int keysym, t_data *data);
-void	julia_shift(int keysym, t_data *data);
+int		directional_arrow(int keysym, t_data *data);
+int		zoom_event(int keysym, t_data *data);
+int		julia_shift(int keysym, t_data *data);
 int		handle_keypress(int keysym, t_data *data);
 int		mouse_stuff(int mousesym, int x, int y, t_data *data);
 /*				parsing.c				*/
@@ -93,7 +95,9 @@ int		mandelbrot(t_complex c, int iter_max);
 int		julia(t_complex z, int iter_max, t_data *data);
 int		burning_ship(t_complex c, int iter_max);
 /*				main.c				*/
-int		get_color(int iteration, int iter_max);
+int		get_red_colors(int iteration, int iter_max);
+int		get_green_colors(int iteration, int iter_max);
+int		get_blue_colors(int iteration, int iter_max);
 void	img_pix_put(t_img *img, int x, int y, int color);
 int		end_of_prog(t_data *data);
 

@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:32:26 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/04/25 17:31:41 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:34:04 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	coloring_win(t_data *data, double x, double y)
 				img_pix_put(&data->img, fract.x, fract.y, 0);
 			else
 			{
-				fract.color = get_color(iter, data->zoom.iter_max);
+				fract.color = select_color_set(data->fractal.rgb, iter, data);
 				img_pix_put(&data->img, fract.x, fract.y, fract.color);
 			}
 			fract.x++;
@@ -42,34 +42,10 @@ void	coloring_win(t_data *data, double x, double y)
 
 void	render(t_data *data, double x, double y)
 {
-	t_complex	c;
-	t_fract		fract;
-	int			iter;
-
 	data->img.mlx_img = mlx_new_image(data->mlx, 300, 300);
 	data->img.addr = mlx_get_data_addr
 		(data->img.mlx_img, &data->img.bpp, &data->img.rowlen, &data->img.end);
-	// coloring_win(data, x, y);
-	fract.y = 0;
-	while (fract.y < 300)
-	{
-		fract.x = 0;
-		while (fract.x < 300)
-		{
-			c.r = pix_to_comp(fract.x, 300, 4, data->zoom.zoom) + x / 2;
-			c.i = pix_to_comp(-fract.y, -300, -4, data->zoom.zoom) + y / 2;
-			iter = select_fractal(data->set, c, data);
-			if (iter == data->zoom.iter_max)
-				img_pix_put(&data->img, fract.x, fract.y, 0);
-			else
-			{
-				fract.color = get_color(iter, data->zoom.iter_max);
-				img_pix_put(&data->img, fract.x, fract.y, fract.color);
-			}
-			fract.x++;
-		}
-		fract.y++;
-	}
+	coloring_win(data, x, y);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
 	mlx_destroy_image(data->mlx, data->img.mlx_img);
 }
