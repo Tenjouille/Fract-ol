@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:10:04 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/05/01 17:03:09 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:10:26 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int ac, char **av)
 		return (free(data.mlx), 1);
 	mlx_hook(data.win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win, ButtonPress, ButtonPressMask, &mouse_stuff, &data);
-	mlx_hook(data.win, 17, 1l<<17, &end_of_prog, &data);
+	mlx_hook(data.win, 17, 1l << 17, &end_of_prog, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }
