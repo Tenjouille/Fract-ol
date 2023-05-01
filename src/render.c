@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:32:26 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/04/26 15:34:04 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:03:29 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ int	burning_ship(t_complex c, int iter_max)
 	while ((z.r * z.r + z.i * z.i) < 4 && i < iter_max)
 	{
 		tmp = z;
-		z.r = ft_abs(tmp.r) * ft_abs(tmp.r);
-		z.r += -ft_abs(tmp.i) * ft_abs(tmp.i) + c.r;
+		z.r = ft_abs(tmp.r) * ft_abs(tmp.r) - ft_abs(tmp.i) * ft_abs(tmp.i) + c.r;
+		// z.r = ft_abs(tmp.r) * ft_abs(tmp.r);
+		// z.r += -ft_abs(tmp.i) * ft_abs(tmp.i) + c.r;
 		z.i = 2 * ft_abs(tmp.r) * ft_abs(tmp.i) + c.i;
 		i++;
 	}

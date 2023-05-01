@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:10:34 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/04/26 15:52:06 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:16:02 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,5 @@ int	mouse_stuff(int mousesym, int x, int y, t_data *data)
 		data->zoom.zoom *= 1.5;
 		render(data, data->zoom.mouse_x, data->zoom.mouse_y);
 	}
-	printf ("(%d, %d)\n", x, y);
 	return (0);
 }
