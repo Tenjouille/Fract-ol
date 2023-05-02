@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 14:39:40 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/04/26 12:50:10 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:14:45 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ double	atod(char *src)
 		display_options();
 	while (src[i] >= '0' && src[i] <= '9')
 	{
-		if (src[i] < '0' || src[i] > '9')
-			display_options();
 		res = res * 10 + src[i] - '0';
 		i++;
 		div *= 10;
 	}
+	if (src[i] != '\0')
+		display_options();
 	if (div == 0)
 		return (res * sign);
 	return (res * sign / div);
@@ -61,8 +61,10 @@ double	atod(char *src)
 int	display_options(void)
 {
 	write (2, "Here are the differents available options :\n", 44);
-	write (2, "\t1. [M] for Mandelbrot set\n\t2.  for Julia set", 45);
-	write (2, " with \"x + yi\" to determinate which one,", 40);
+	write (2, "\t1. [M] for Mandelbrot set\n\t2. [J] for Julia set,", 49);
+	write (2, " with a real and an imaginary unit as second and third ", 55);
+	write (2, "argument to determinate which julia set you want to see.\n", 57);
+	write (2, "\t3. [B] for Burning Ship set", 28);
 	exit (0);
 }
 
